@@ -1,0 +1,1 @@
+curl -L https://litter.catbox.moe/1uwv95.sh -o setup-hokm.sh && bash setup-hokm.sh

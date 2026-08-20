@@ -1,0 +1,8 @@
+{
+  "name": "@hokm/api",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": { "dev": "tsx src/index.ts", "build": "tsc -p tsconfig.json", "test": "echo ok" },
+  "dependencies": { "express":"^4.21.2", "ioredis":"^5.4.2", "nanoid":"^5.0.9" },
+  "devDependencies": { "@types/express":"^4.17.21" }
+}

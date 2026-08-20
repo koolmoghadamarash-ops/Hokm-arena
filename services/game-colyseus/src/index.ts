@@ -1,0 +1,12 @@
+import * as http from "http";
+import express from "express";
+import { Server } from "colyseus";
+import { WebSocketTransport } from "@colyseus/ws-transport";
+import { HokmRoom } from "./rooms/HokmRoom.js";
+const port = Number(process.env.PORT ?? 2567);
+const app = express();
+const server = http.createServer(app);
+const gameServer = new Server({ transport: new WebSocketTransport({ server }) });
+gameServer.define("hokm", HokmRoom);
+app.get("/health", (_req,res)=>res.json({ok:true,service:"game-server"}));
+server.listen(port, ()=>console.log(`game-server listening on :${port}`));

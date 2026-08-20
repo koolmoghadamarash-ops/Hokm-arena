@@ -1,0 +1,22 @@
+{
+  "name": "hokm-arena",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*", "services/*"],
+  "scripts": {
+    "build": "npm run -ws build --if-present",
+    "test": "jest --runInBand",
+    "dev:game": "npm --workspace @hokm/game-server run dev",
+    "dev:api": "npm --workspace @hokm/api run dev",
+    "dev:mm": "npm --workspace @hokm/matchmaking run dev"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.1",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@hokm/game-rules",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": { "build": "tsc -p tsconfig.json", "test": "echo ok" },
+  "dependencies": { "@hokm/shared-types": "1.0.0" }
+}

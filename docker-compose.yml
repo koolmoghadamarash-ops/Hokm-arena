@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD","redis-cli","ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: hokm
+      POSTGRES_PASSWORD: hokm
+      POSTGRES_DB: hokm
+    ports: ["5432:5432"]
+  api:
+    image: node:22-alpine
+    working_dir: /app
+    volumes: ["./:/app"]
+    command: sh -c "npm i && npm run dev:api"
+    environment:
+      REDIS_URL: redis://redis:6379
+      PORT: 3000
+    ports: ["3000:3000"]
+    depends_on:
+      redis:
+        condition: service_healthy
+  game-server:
+    image: node:22-alpine
+    working_dir: /app
+    volumes: ["./:/app"]
+    command: sh -c "npm i && npm run dev:game"
+    environment:
+      TURN_TIMEOUT_SECONDS: 5
+      MATCH_TARGET_POINTS: 7
+      PORT: 2567
+    ports: ["2567:2567"]
+  matchmaking:
+    image: node:22-alpine
+    working_dir: /app
+    volumes: ["./:/app"]
+    command: sh -c "npm i && npm run dev:mm"
+    environment:
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
